@@ -3,6 +3,8 @@ import { Footer } from "../../Components/footer/footer"
 import React, { useEffect, useState } from "react"
 import { FilmesGeneros } from '../../Services/api'
 
+import Swal from 'sweetalert2'
+
 import { ModalGenero } from "../../Components/modalGenero/modalGenero"
 
 import '../../Assets/Css/generos.css'
@@ -51,9 +53,23 @@ export const Genero = (props:any):JSX.Element => {
     const [nomeGenero, setNomeGenero] = useState('');
     
     const Salvar = () => {
-        FilmesGeneros.post('Generos', {nomeGenero : nomeGenero})
-        .then(ListarGeneros()) 
-        .then(() => window.location.reload())   
+        if(nomeGenero != ''){
+
+            FilmesGeneros.post('Generos', {nomeGenero : nomeGenero})
+            .then(ListarGeneros()) 
+            .then(() => window.location.reload())   
+        }
+        else{
+            Swal.fire({
+                title: 'Putz... Está vazio meu xapa',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#41B8D2',
+                cancelButtonColor: '#F6511D',
+              }).then((result) => {
+               
+            })
+        }
     }
     
     const Excluir = (id:number) => {

@@ -3,6 +3,8 @@ import { Footer } from "../../Components/footer/footer"
 import Cinema from '../../Assets/IMG/cinema1.png'
 import '../../Assets/Css/mdFilmes.css'
 
+import Swal from 'sweetalert2'
+
 import '../../Assets/Css/filmes.css'
 import '../../Assets/Css/global.css'
 import React, { useEffect, useState } from "react"
@@ -75,9 +77,21 @@ export const Filmes = (props:any): JSX.Element => {
     const [idGenero, setIdGenero] = useState('')
 
     const Salvar = (id:any) => {
-        FilmesGeneros.post(`Generos/${id}/Filmes`, {nomeFilme : nomeFilme})
-        .then(() => setNomeFilme(''))
-        .then(() => window.location.reload())
+        if(nomeFilme != ''){
+
+            FilmesGeneros.post(`Generos/${id}/Filmes`, {nomeFilme : nomeFilme})
+            .then(() => setNomeFilme(''))
+            .then(() => window.location.reload())
+        }
+        else{
+            Swal.fire({
+                title: 'Putz... Está vazio meu xapa',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#41B8D2',
+                cancelButtonColor: '#F6511D',
+        })
+        }
     }
 
     
@@ -124,6 +138,7 @@ export const Filmes = (props:any): JSX.Element => {
                                      placeholder="Título do Filme"
                                      value={nomeFilme}
                                      onChange={(estadoDoInput) => setNomeFilme(estadoDoInput.target.value)}
+                                     maxLength={20}
                                       />
                                 </div>
                                 <select name="selectDoUsuario" className="sectionFilmes" onChange={(estadoDoSelect) => setIdGenero(estadoDoSelect.target.value)}>
