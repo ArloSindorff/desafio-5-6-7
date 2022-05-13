@@ -97,7 +97,7 @@ export const Filmes = (props:any): JSX.Element => {
     
     const [idFilmes, setIdFilmes] = useState('')
     const [modall, setModal] = useState('hide')
-    const AbrirFechar = (estado:any, id:any):any => {
+    const AbrirFechar = (estado:any, id:any, idGenero:any):any => {
 
         if(estado === 'hide'){
             setModal('show')
@@ -107,7 +107,7 @@ export const Filmes = (props:any): JSX.Element => {
         }
 
         setIdFilmes(id)
-        setIdGenero(id)
+        setIdGenero(idGenero)
         
     }
 
@@ -179,7 +179,7 @@ export const Filmes = (props:any): JSX.Element => {
 
                                         <div>
                                             <a href="#topo">
-                                                <button className="editarFilmes" onClick={ () => {AbrirFechar(modall, item.id)}}>Editar</button>
+                                                <button className="editarFilmes" onClick={ () => {AbrirFechar(modall, item.id, item.Genero.id)}}>Editar</button>
                                             </a>
                                             <button className="excluirFilmes" onClick={() => Excluir(item.Genero.id, item.id)}>Excluir</button>
                                         </div>

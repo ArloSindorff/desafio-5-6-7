@@ -23,10 +23,11 @@ export const ModalFilmes = (props:any):JSX.Element => {
     }, [])
 
     const [nomeFilme, setNomeFilme] = useState('');
-    const EditarFilme = (id:any, idFilmes:string) => {
-        FilmesGeneros.put(`Generos/${id}/Filmes/${idFilmes}`, { nomeFilme: nomeFilme })  
+    const EditarFilme = (id:any, idFilmes:string):any => {
+        FilmesGeneros.put(`Generos/${id}/Filmes/${idFilmes}`, { nomeFilme : nomeFilme })  
         .then(() => setNomeFilme('')) 
         // .then(() => window.location.reload())
+        console.log(props);
     }
 
     return(
