@@ -1,6 +1,8 @@
 import '../../Assets/Css/mdFilmes.css'
 import '../../Assets/Css/global.css'
 
+import Swal from 'sweetalert2'
+
 import React, { useEffect, useState } from "react"
 
 import { FilmesGeneros } from '../../Services/api'
@@ -24,10 +26,22 @@ export const ModalFilmes = (props:any):JSX.Element => {
 
     const [nomeFilme, setNomeFilme] = useState('');
     const EditarFilme = (id:any, idFilmes:string):any => {
-        FilmesGeneros.put(`Generos/${id}/Filmes/${idFilmes}`, { nomeFilme : nomeFilme })  
-        .then(() => setNomeFilme('')) 
-        // .then(() => window.location.reload())
-        console.log(props);
+        if (nomeFilme != '') {
+            
+            FilmesGeneros.put(`Generos/${id}/Filmes/${idFilmes}`, { nomeFilme : nomeFilme })  
+            .then(() => setNomeFilme('')) 
+            .then(() => window.location.reload())
+            console.log(props);
+        }
+        else{
+            Swal.fire({
+                title: 'Putz... Está vazio meu xapa',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#41B8D2',
+                cancelButtonColor: '#F6511D',
+        })
+        }
     }
 
     return(
